@@ -20,7 +20,11 @@ class AdminController extends Controller
     public function dashboardAction()
     {
         // FIXME: Récupérer les utilisateurs non admin
-        $users = [];
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(User::class);
+        $users = $repo->findBy(
+            array('isAdmin' => 'false')
+        );
 
         return $this->render('Admin/dashboard.html.twig', ['users' => $users]);
     }

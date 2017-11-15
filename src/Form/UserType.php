@@ -20,7 +20,19 @@ class UserType extends AbstractType
                 'type'           => PasswordType::class,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
-            ]);
+            ])
+
+            ->add('plainPassword', RepeatedType::class, array(
+                'mapped' => false,
+                'type' => PasswordType::class,
+                'first_options'  => array('label' => 'Password'),
+                'second_options' => array('label' => 'Repeat Password'),
+            ))
+            ->add("firstname", TextType::class)
+            ->add("lastname", TextType::class)
+            ->add("email", TextType::class)
+            ->add("birthday", DateType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

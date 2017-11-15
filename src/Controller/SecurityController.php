@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -36,6 +38,21 @@ class SecurityController extends Controller
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         // FIXME: Instancier le formulaire et à la soumission enregistrer le user.
+        $user = new User();
+
+        $form = $this->createForm(UserType::class,$user);
+
+        $form->HandleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+        }
+
+        return $this->render('Security/register.html.twig', array(
+            'form' => $form->createView(),
+        ));
         // La vue à rendre : Security/register.html.twig
     }
 }
