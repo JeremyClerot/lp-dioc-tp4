@@ -5,20 +5,17 @@
 
 {% block body %}
     {# FIXME: Afficher Hello <firstname> <lastname> #}
-    Hello John Doe
+    Hello {{ admin.firstname }} {{ admin.lastname }}
 
 
     {# FIXME: Lister les utilisateurs et afficher un lien de suppression #}
 
     <ul>
-        <li>
-            <a href="/profile/1">John Doe - foo@exemple.org</a>
-            <a href="/admin//delete-user/1">delete</a>
-        </li>
-        <li>
-            <a href="/profile/2">Foo Bar - foo@exemple.org</a>
-            <a href="/admin//delete-user/2">delete</a>
-
-        </li>
+        {% for unUser in users %}
+            <li>
+                <a href="/profile/{{ unUser.id }}">{{ unUser.firstname }} {{ unUser.lastname }} - {{ unUser.email }}</a>
+                <a href="/admin/delete-user/{{ unUser.id }}">delete</a>
+            </li>
+        {% endfor %}
     </ul>
 {% endblock %}

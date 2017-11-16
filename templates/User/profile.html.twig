@@ -21,6 +21,9 @@
         <li>
             Email: {{ user.email }}
         </li>
+        <li>
+            Birthday: {{ user.birthday|date('d-m-Y H:i:s') }}
+        </li>
     </ul>
     {#
     <ul>
